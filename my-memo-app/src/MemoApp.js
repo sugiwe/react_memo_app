@@ -1,8 +1,8 @@
-import './App.css';
+import './MemoApp.css';
 
-function App() {
+function MemoApp() {
   return (
-    <div className="App">
+    <div className="MemoApp">
       <div className="list">
         <ul>
           <li>メモ1</li>
@@ -20,4 +20,4 @@ function App() {
   );
 }
 
-export default App;
+export default MemoApp;
