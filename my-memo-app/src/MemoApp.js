@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import "./MemoApp.css";
 import List from "./List";
 import Form from "./Form";
@@ -41,7 +41,11 @@ export default function MemoApp() {
 
   return (
     <div className="MemoApp">
-      <List memos={memos} onAddClick={handleAddClick} onMemoClick={handleMemoClick} />
+      <List
+        memos={memos}
+        onAddClick={handleAddClick}
+        onMemoClick={handleMemoClick}
+      />
       {isFormVisible && (
         <Form
           setIsFormVisible={setIsFormVisible}

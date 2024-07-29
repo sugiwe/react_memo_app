@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 export default function Form({ setIsFormVisible, selectedMemo, saveMemos }) {
   const [content, setContent] = useState("");
@@ -15,7 +15,7 @@ export default function Form({ setIsFormVisible, selectedMemo, saveMemos }) {
     if (selectedMemo) {
       saveMemos((prevMemos) => {
         const updatedMemos = prevMemos.map((memo) =>
-          memo.id === selectedMemo.id ? { ...memo, content } : memo
+          memo.id === selectedMemo.id ? { ...memo, content } : memo,
         );
         return updatedMemos;
       });
@@ -32,8 +32,8 @@ export default function Form({ setIsFormVisible, selectedMemo, saveMemos }) {
   const handleDeleteClick = () => {
     if (selectedMemo) {
       saveMemos((prevMemos) => {
-        const updatedMemos = prevMemos.filter((memo) =>
-          memo.id !== selectedMemo.id
+        const updatedMemos = prevMemos.filter(
+          (memo) => memo.id !== selectedMemo.id,
         );
         return updatedMemos;
       });
@@ -47,21 +47,12 @@ export default function Form({ setIsFormVisible, selectedMemo, saveMemos }) {
 
   return (
     <div className="memo">
-      <textarea
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-      />
+      <textarea value={content} onChange={(e) => setContent(e.target.value)} />
       <button onClick={handleSaveClick} disabled={!content.trim()}>
         {selectedMemo ? "更新" : "保存"}
       </button>
-      {selectedMemo && (
-        <button onClick={handleDeleteClick}>
-          削除
-        </button>
-      )}
-      <button onClick={handleCloseClick}>
-        {"閉じる"}
-      </button>
+      {selectedMemo && <button onClick={handleDeleteClick}>削除</button>}
+      <button onClick={handleCloseClick}>{"閉じる"}</button>
     </div>
   );
 }
