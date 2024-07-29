@@ -1,23 +1,54 @@
-import './MemoApp.css';
+import { useState, useEffect } from "react";
+import "./MemoApp.css";
+import List from "./List";
+import Form from "./Form";
 
-function MemoApp() {
+const loadMemosFromLocalStorage = () => {
+  const savedMemos = localStorage.getItem("memos");
+  return savedMemos ? JSON.parse(savedMemos) : [];
+};
+
+export default function MemoApp() {
+  const [memos, setMemos] = useState([]);
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [selectedMemo, setSelectedMemo] = useState(null);
+
+  useEffect(() => {
+    const initialMemos = loadMemosFromLocalStorage();
+    setMemos(initialMemos);
+  }, []);
+
+  const saveMemos = (updateFn) => {
+    setMemos((prevMemos) => {
+      const newMemos = updateFn(prevMemos);
+      localStorage.setItem("memos", JSON.stringify(newMemos));
+      return newMemos;
+    });
+  };
+
+  const showForm = (memo = null) => {
+    setSelectedMemo(memo);
+    setIsFormVisible(true);
+  };
+
+  const handleMemoClick = (memo) => {
+    showForm(memo);
+  };
+
+  const handleAddClick = () => {
+    showForm();
+  };
+
   return (
     <div className="MemoApp">
-      <div className="list">
-        <ul>
-          <li>メモ1</li>
-          <li>メモ2</li>
-          <li>メモ3</li>
-          <li>＋</li>
-        </ul>
-      </div>
-      <div className="memo">
-        <textarea />
-        <button>更新</button>
-        <button>削除</button>
-      </div>
+      <List memos={memos} onAddClick={handleAddClick} onMemoClick={handleMemoClick} />
+      {isFormVisible && (
+        <Form
+          setIsFormVisible={setIsFormVisible}
+          selectedMemo={selectedMemo}
+          saveMemos={saveMemos}
+        />
+      )}
     </div>
   );
 }
-
-export default MemoApp;
