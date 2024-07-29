@@ -1,3 +1,5 @@
+import React from 'react';
+
 function Memo({ memo, onClick }) {
   const firstLine = memo.content.split("\n")[0];
   const title = firstLine;

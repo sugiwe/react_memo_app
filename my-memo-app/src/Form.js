@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 export default function Form({ setIsFormVisible, selectedMemo, saveMemos }) {
   const [content, setContent] = useState("");
