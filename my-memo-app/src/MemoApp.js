@@ -18,12 +18,26 @@ export default function MemoApp() {
     setMemos(initialMemos);
   }, []);
 
-  const saveMemos = (updateFn) => {
-    setMemos((prevMemos) => {
-      const newMemos = updateFn(prevMemos);
-      localStorage.setItem("memos", JSON.stringify(newMemos));
-      return newMemos;
-    });
+  const saveMemos = (newMemos) => {
+    setMemos(newMemos);
+    localStorage.setItem("memos", JSON.stringify(newMemos));
+  };
+
+  const handleSave = (content) => {
+    if (selectedMemo) {
+      saveMemos(
+        memos.map((memo) =>
+          memo.id === selectedMemo.id ? { ...memo, content } : memo,
+        ),
+      );
+    } else {
+      const newMemo = { id: Date.now(), content };
+      saveMemos([...memos, newMemo]);
+    }
+  };
+
+  const handleDelete = (id) => {
+    saveMemos(memos.filter((memo) => memo.id !== id));
   };
 
   const showForm = (memo = null) => {
@@ -50,7 +64,8 @@ export default function MemoApp() {
         <Form
           setIsFormVisible={setIsFormVisible}
           selectedMemo={selectedMemo}
-          saveMemos={saveMemos}
+          onSave={handleSave}
+          onDelete={handleDelete}
         />
       )}
     </div>

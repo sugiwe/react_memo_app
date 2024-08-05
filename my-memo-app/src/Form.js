@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-export default function Form({ setIsFormVisible, selectedMemo, saveMemos }) {
+export default function Form({
+  setIsFormVisible,
+  selectedMemo,
+  onSave,
+  onDelete,
+}) {
   const [content, setContent] = useState("");
 
   useEffect(() => {
@@ -10,31 +15,15 @@ export default function Form({ setIsFormVisible, selectedMemo, saveMemos }) {
   }, [selectedMemo]);
 
   const handleSaveClick = () => {
-    if (selectedMemo) {
-      saveMemos((prevMemos) => {
-        const updatedMemos = prevMemos.map((memo) =>
-          memo.id === selectedMemo.id ? { ...memo, content } : memo,
-        );
-        return updatedMemos;
-      });
-    } else {
-      saveMemos((prevMemos) => {
-        const newMemo = { id: Date.now(), content };
-        const updatedMemos = [...prevMemos, newMemo];
-        return updatedMemos;
-      });
+    if (content.trim()) {
+      onSave(content);
+      setIsFormVisible(false);
     }
-    setIsFormVisible(false);
   };
 
   const handleDeleteClick = () => {
     if (selectedMemo) {
-      saveMemos((prevMemos) => {
-        const updatedMemos = prevMemos.filter(
-          (memo) => memo.id !== selectedMemo.id,
-        );
-        return updatedMemos;
-      });
+      onDelete(selectedMemo.id);
     }
     setIsFormVisible(false);
   };
