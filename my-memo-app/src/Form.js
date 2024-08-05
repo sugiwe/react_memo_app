@@ -6,8 +6,6 @@ export default function Form({ setIsFormVisible, selectedMemo, saveMemos }) {
   useEffect(() => {
     if (selectedMemo) {
       setContent(selectedMemo.content);
-    } else {
-      setContent("");
     }
   }, [selectedMemo]);
 
