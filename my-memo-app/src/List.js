@@ -1,10 +1,5 @@
 import React from "react";
-
-function Memo({ memo, onClick }) {
-  const title = memo.content.split("\n")[0];
-
-  return <li onClick={() => onClick(memo)}>{title}</li>;
-}
+import Memo from "./Memo";
 
 export default function List({ memos, onAddClick, onMemoClick }) {
   const items = memos.map((memo) => (
