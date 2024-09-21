@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { LoginContext } from "./LoginContext";
 
 export default function Form({
   setIsFormVisible,
@@ -7,6 +8,7 @@ export default function Form({
   onDelete,
 }) {
   const [content, setContent] = useState("");
+  const { isLoggedIn } = useContext(LoginContext);
 
   useEffect(() => {
     if (selectedMemo) {
@@ -34,11 +36,19 @@ export default function Form({
 
   return (
     <div className="memo">
-      <textarea value={content} onChange={(e) => setContent(e.target.value)} />
-      <button onClick={handleSaveClick} disabled={!content.trim()}>
-        {selectedMemo ? "更新" : "保存"}
-      </button>
-      {selectedMemo && <button onClick={handleDeleteClick}>削除</button>}
+      <textarea
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        disabled={!isLoggedIn}
+      />
+      {isLoggedIn && (
+        <button onClick={handleSaveClick} disabled={!content.trim()}>
+          {selectedMemo ? "更新" : "保存"}
+        </button>
+      )}
+      {isLoggedIn && selectedMemo && (
+        <button onClick={handleDeleteClick}>削除</button>
+      )}
       <button onClick={handleCloseClick}>{"閉じる"}</button>
     </div>
   );

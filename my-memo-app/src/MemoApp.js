@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./MemoApp.css";
 import List from "./List";
 import Form from "./Form";
+import { LoginContext } from "./LoginContext";
 
 const loadMemosFromLocalStorage = () => {
   const savedMemos = localStorage.getItem("memos");
@@ -9,6 +10,7 @@ const loadMemosFromLocalStorage = () => {
 };
 
 export default function MemoApp() {
+  const { isLoggedIn, toggleLogin } = useContext(LoginContext);
   const [memos, setMemos] = useState([]);
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [selectedMemo, setSelectedMemo] = useState(null);
@@ -55,6 +57,16 @@ export default function MemoApp() {
 
   return (
     <div className="MemoApp">
+      <header>
+        <div className="header-left">
+          <p>MeMoo!!</p>
+        </div>
+        <div className="header-right">
+          <button onClick={toggleLogin}>
+            {isLoggedIn ? "ログアウト" : "ログイン"}
+          </button>
+        </div>
+      </header>
       <List
         memos={memos}
         onAddClick={handleAddClick}
