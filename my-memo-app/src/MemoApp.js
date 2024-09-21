@@ -57,16 +57,16 @@ export default function MemoApp() {
 
   return (
     <div className="MemoApp">
-    <header>
-      <div className="header-left">
-        <p>MeMoo!!</p>
-      </div>
-      <div className="header-right">
-        <button onClick={toggleLogin}>
-          {isLoggedIn ? "ログアウト" : "ログイン"}
-        </button>
-      </div>
-    </header>
+      <header>
+        <div className="header-left">
+          <p>MeMoo!!</p>
+        </div>
+        <div className="header-right">
+          <button onClick={toggleLogin}>
+            {isLoggedIn ? "ログアウト" : "ログイン"}
+          </button>
+        </div>
+      </header>
       <List
         memos={memos}
         onAddClick={handleAddClick}
